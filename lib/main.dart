@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'app.dart';
+import 'presentation/providers/auth_provider.dart';
+import 'presentation/providers/cliente_provider.dart';
+import 'presentation/providers/prestamo_provider.dart';
+import 'presentation/providers/pago_provider.dart';
 
 void main() {
-  runApp(const MainApp());
-}
+  WidgetsFlutterBinding.ensureInitialized();
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
-    );
-  }
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => ClienteProvider()),
+        ChangeNotifierProvider(create: (_) => PrestamoProvider()),
+        ChangeNotifierProvider(create: (_) => PagoProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
