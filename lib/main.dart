@@ -8,7 +8,15 @@ import 'presentation/providers/pago_provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
+  
+  // INICIALIZAR BASE DE DATOS ANTES DE ARRANCAR LA APP
+  try {
+    final dbHelper = DatabaseHelper.instance;
+    await dbHelper.database; // Fuerza la inicialización
+    print('✅ Base de datos inicializada correctamente');
+  } catch (e) {
+    print('❌ Error al inicializar base de datos: $e');
+  }
   runApp(
     MultiProvider(
       providers: [
